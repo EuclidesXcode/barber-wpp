@@ -1,4 +1,3 @@
-const api = require('./config/index')
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const app = require('express')();
@@ -19,10 +18,6 @@ client.on('ready', () => {
     client.sendMessage('5511977982781@c.us', 'Server on');
 });
 
-//   const existe = await api.post('/clients/filter', {
-//     from: from[0]
-//   });
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,5 +29,6 @@ app.listen( port, () => {
 
 client.on('message', async (msg) => {
   console.log("funcionou", msg)
-    onMessage.receiveMessage(msg)
+    const result = await onMessage.receiveMessage(msg)
+    console.log("verifyClient: ", result.status);
 })

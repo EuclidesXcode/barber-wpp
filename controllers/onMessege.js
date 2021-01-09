@@ -1,6 +1,13 @@
+const api = require('../config/index')
+
 const onMessage = {
     receiveMessage: async (req, res) => {
-        console.log("o que eu recebi", req, res)
+        const from = req.from
+        const number = from.split('@');
+        const existe = await api.post('/clients/filter', {
+            from: number[0]
+        });
+        return existe;
     }
 }
 
