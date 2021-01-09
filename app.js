@@ -32,4 +32,4 @@ app.listen( port, () => {
     console.log(`server on ${port}`)
 })
 
-// module.exports = clt;
+exports.cliente = cliente;
