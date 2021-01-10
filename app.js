@@ -32,7 +32,7 @@ client.on('message', async (msg) => {
     const existsClient = await onMessage.existsClientFromDb(msg);
     if(!existsClient) {
         const stepper = await onMessage.verifyStepper(from);
-        if(stepper === 1 && (message !== '1' || message !== 1)) {
+        if(stepper === 0 && (message !== '1' || message !== 1)) {
             client.sendMessage(
                 from,
                 `Ola! Bem vindo a Santa Tinta Tatuagens.
@@ -45,7 +45,7 @@ client.on('message', async (msg) => {
             return;
             
         }
-        if(stepper === 1 && (message === '1' || message === 1)) {
+        if(stepper === 0 && (message === '1' || message === 1)) {
             client.sendMessage(
                 from,
                 `Legal, para prosseguir-mos com o cadastro nos informe seu nome completo.`
@@ -53,7 +53,7 @@ client.on('message', async (msg) => {
             await onMessage.updateStepper();
             return;
         }
-        if(stepper === 1 && (message === '2' || message === 2)) {
+        if(stepper === 0 && (message === '2' || message === 2)) {
             client.sendMessage(
                 from,
                 `Beleza, só acessar nosso insta @henrique_tatuagens, aproveite e começe a nos seguir ;D`
@@ -61,7 +61,7 @@ client.on('message', async (msg) => {
             await onMessage.resetSteppper();
             return;
         }
-        if(stepper === 1 && ( message != '1' || message != '2')) {
+        if(stepper === 0 && ( message != '1' || message != '2')) {
             client.sendMessage(
                 from,
                 `Desculpe, não intendemos oque você quer, escolha uma das opções abaixo:
@@ -70,7 +70,7 @@ client.on('message', async (msg) => {
                 `
                 )
         }
-        if(stepper === 2) {
+        if(stepper === 1) {
             client.sendMessage(
                 from,
                 `${message.split(' ')}, agora por favor nos informe seu cpf, somente números.`
@@ -78,7 +78,7 @@ client.on('message', async (msg) => {
             await onMessage.updateStepper();
             return;
         }
-        if(stepper === 3) {
+        if(stepper === 2) {
             client.sendMessage(
                 from,
                 `Perfeito! Para finalizar precisamos de sua data de nascimento ex: 20-12-1990`
@@ -86,7 +86,7 @@ client.on('message', async (msg) => {
             await onMessage.updateStepper();
             return;
         }
-        if(stepper === 4) {
+        if(stepper === 3) {
             client.sendMessage(
                 from, 
                 `Seu cadastro foi concluido com sucesso!
@@ -98,7 +98,7 @@ client.on('message', async (msg) => {
             await onMessage.updateStepper();
             return;
         }
-        if(stepper === 5 && (message === '1' || message === 1)) {
+        if(stepper === 4 && (message === '1' || message === 1)) {
             client.sendMessage(
                 from,
                 `Para finalizar o agendamento, nos envie uma imagem da tatuagem que deseja.
