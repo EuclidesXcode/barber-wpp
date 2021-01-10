@@ -1,7 +1,7 @@
 const api = require('../config/index');
 
 const onMessage = {
-    existsNumberFromDb: async (req, res) => {
+    existsClientFromDb: async (req, res) => {
         const from = req.from
         const number = from.split('@');
         const exists = await api.post('/clients/filter', {
@@ -9,14 +9,18 @@ const onMessage = {
         });
         return exists;
     },
-    verifyStepper: async (from) => {
-        const stepper = await api.get(`/clients/stepper/${from}`);
+    verifyStepper: async (req) => {
+        const from = req.from
+        const number = from.split('@');
+        const stepper = await api.get(`/clients/stepper/${number[0]}`);
         return stepper;
     },
-    updateStepper: async (from) => {
+    updateStepper: async (req) => {
+        const from = req.from
         await api.put(`/clients/stepper/${from}`); 
     },
-    resetSteppper: async (from) => {
+    resetSteppper: async (req) => {
+        const from = req.from
         await api.put(`/clients/stepper/${from}`); 
     },
 }

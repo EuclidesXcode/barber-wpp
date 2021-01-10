@@ -30,9 +30,9 @@ client.on('message', async (msg) => {
     const from = msg.from;
     const message = msg.body;
     const existsClient = await onMessage.existsClientFromDb(msg);
-    if(!existsClient) {
-        const stepper = await onMessage.verifyStepper(from);
-        if(stepper === 0 && (message !== '1' || message !== 1)) {
+    if(existsClient.data === null) {
+        const stepper = await onMessage.verifyStepper(msg);
+        if(stepper.data === 0 && (message !== '1' || message !== 1)) {
             client.sendMessage(
                 from,
                 `Ola! Bem vindo a Santa Tinta Tatuagens.
@@ -109,48 +109,4 @@ client.on('message', async (msg) => {
             return;
         }
     }
-//     let stepper = onMessage.verifyStepper(from);
-//     if(stepper === 0)
-//     if (message === '1' || message === 1) {
-//         client.sendMessage(
-//             from,
-//             `Ok, vamos fazer seu cadastro
-// Me fala ai seu nome...`
-//         )
-//     } else if (message.length < 2 && message.length !== 11 && message.split('-').length !== 3) {
-//         let nome = message.split(' ')
-//         client.sendMessage(
-//             from,
-//             `Blz ${nome[0]}, vamos lá,
-// agora me fala ai seu CPF,
-// digita só numeros....`
-//         )
-//     } else if (message.length === 11) {
-//         const cpf = message;
-//         client.sendMessage(
-//             from,
-//             `Estamos indo bem.
-// Me fala agora sua data de nascimento.
-// Ex: 10-10-2000`
-//         )
-//     } else if (message.length === 10 && message.split('-').length === 3) {
-//         console.log("chemos no fim")
-//         client.sendMessage(
-//             from,
-//             `Blz, fiz aqui seu cadastro`
-//         )
-//     } else if(message) {
-//         const result = await onMessage.receiveMessage(msg)
-//         if(result.data == null) {
-//             client.sendMessage(
-//                 from,
-//                 `Vi aqui que vc não é cadastrado
-// Escolhe ai uma das opções:
-
-// 1) Deseja agendar uma tattoo?
-// 2) Deseja conhecer nossos trabalhos?`
-//             )
-//         }
-//     }
-//     console.log("verifyClient: ", result.data);
  })
