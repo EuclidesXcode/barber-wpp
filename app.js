@@ -78,7 +78,7 @@ Escolha uma das opções abaixo para continuar:
         }
         if(stepper == 1) {
             const msgName = message.split(' ');
-            name = msgName
+            name = message
             client.sendMessage(
                 from,
                 `${msgName[0]}, agora por favor nos informe seu cpf, somente números.`
