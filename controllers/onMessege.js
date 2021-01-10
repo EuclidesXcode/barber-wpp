@@ -12,16 +12,25 @@ const onMessage = {
     verifyStepper: async (req) => {
         const from = req.from
         const number = from.split('@');
+        console.log("number: ", number[0])
         const stepper = await api.get(`/clients/stepper/${number[0]}`);
+        console.log("stepper: ", stepper.data)
         return stepper;
     },
-    updateStepper: async (req) => {
-        const from = req.from
-        await api.put(`/clients/stepper/${from}`); 
+    updateStepper: async (msg, client) => {
+        console.log("entrou no update")
+        const from = msg.from
+        const number = from.split('@');
+        const response = await api.put(`/clients/stepper`, {
+            from: number[0],
+            client: client
+        });
+        return response;
     },
     resetSteppper: async (req) => {
         const from = req.from
-        await api.put(`/clients/stepper/${from}`); 
+        const number = from.split('@');
+        await api.put(`/clients/stepper/reset/${number[0]}`);
     },
 }
 

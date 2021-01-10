@@ -26,87 +26,100 @@ app.listen( port, () => {
 })
 
 client.on('message', async (msg) => {
-    
+    let name;
+    let cpf;
+    let age;
     const from = msg.from;
     const message = msg.body;
     const existsClient = await onMessage.existsClientFromDb(msg);
     if(existsClient.data === null) {
-        const stepper = await onMessage.verifyStepper(msg);
-        if(stepper.data === 0 && (message !== '1' || message !== 1)) {
+        const result = await onMessage.verifyStepper(msg);
+        const stepper = result.data
+        console.log("stepper whatsapp: ", stepper)
+        if(stepper == 0 && message != 1) {
             client.sendMessage(
                 from,
                 `Ola! Bem vindo a Santa Tinta Tatuagens.
-                 Checamos aqui.. Você ainda não está cadastrado em nosso sistema.
-                Escolha uma das opções abaixo para continuar:
-                1) Cadastrar para agendar uma tatuagem.
-                2) Conhecer nossos serviços.
+Checamos aqui.. Você ainda não está cadastrado em nosso sistema.
+Escolha uma das opções abaixo para continuar:
+1) Cadastrar para agendar uma tatuagem.
+2) Conhecer nossos serviços.
                 `
             )
             return;
             
         }
-        if(stepper === 0 && (message === '1' || message === 1)) {
+        if(stepper == 0 && message == 1 ) {
             client.sendMessage(
                 from,
                 `Legal, para prosseguir-mos com o cadastro nos informe seu nome completo.`
             )
-            await onMessage.updateStepper();
+            await onMessage.updateStepper(msg);
+            console.log("todas: ", name, cpf, age)
             return;
         }
-        if(stepper === 0 && (message === '2' || message === 2)) {
+        if(stepper == 0 && message == 2) {
             client.sendMessage(
                 from,
                 `Beleza, só acessar nosso insta @henrique_tatuagens, aproveite e começe a nos seguir ;D`
             );
-            await onMessage.resetSteppper();
+            await onMessage.resetSteppper(msg);
             return;
         }
-        if(stepper === 0 && ( message != '1' || message != '2')) {
+        if(stepper == 0 && message != 2) {
             client.sendMessage(
                 from,
                 `Desculpe, não intendemos oque você quer, escolha uma das opções abaixo:
-                1) Agendar uma tatuagem.
-                2) Conhecer nossos serviços.
+1) Agendar uma tatuagem.
+2) Conhecer nossos serviços.
                 `
                 )
                 return;
         }
-        if(stepper === 1) {
+        if(stepper == 1) {
+            const msgName = message.split(' ');
+            name = msgName
             client.sendMessage(
                 from,
-                `${message.split(' ')}, agora por favor nos informe seu cpf, somente números.`
+                `${msgName[0]}, agora por favor nos informe seu cpf, somente números.`
             )
-            await onMessage.updateStepper();
+            await onMessage.updateStepper(msg, name);
+            console.log("todas: ", name, cpf, age)
             return;
         }
-        if(stepper === 2) {
+        if(stepper == 2) {
+            cpf = message
             client.sendMessage(
                 from,
                 `Perfeito! Para finalizar precisamos de sua data de nascimento ex: 20-12-1990`
             )
-            await onMessage.updateStepper();
+            await onMessage.updateStepper(msg, cpf);
+            console.log("todas: ", name, cpf, age)
             return;
         }
-        if(stepper === 3) {
+        if(stepper == 3) {
+            age = message
             client.sendMessage(
                 from, 
                 `Seu cadastro foi concluido com sucesso!
                 Para continuar escolha uma das opções abaixo:
-                1) Continuar agendamento.
-                2) Conhecer nossos serviços.
+1) Continuar agendamento.
+2) Conhecer nossos serviços.
                 `
             )
-            await onMessage.updateStepper();
+            await onMessage.updateStepper(msg, age);
+            console.log("todas: ", name, cpf, age)
             return;
         }
-        if(stepper === 4 && (message === '1' || message === 1)) {
+        if(stepper == 4 && message == 1) {
             client.sendMessage(
                 from,
                 `Para finalizar o agendamento, nos envie uma imagem da tatuagem que deseja.
-                Assim enviaremos um design dela remodelada para ser algo único no mesmo linhamento e ideia.
-                E entraremos em contato para combinarmos o dia e falarmos sobre preços`
+Assim enviaremos um design dela remodelada para ser algo único no mesmo linhamento e ideia.
+E entraremos em contato para combinarmos o dia e falarmos sobre preços`
             );
             return;
         }
+        console.log("todas: ", name, cpf, age)
     }
  })
