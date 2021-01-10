@@ -38,7 +38,7 @@ client.on('message', async (msg) => {
                 `Ola! Bem vindo a Santa Tinta Tatuagens.
                  Checamos aqui.. Você ainda não está cadastrado em nosso sistema.
                 Escolha uma das opções abaixo para continuar:
-                1) Agendar uma tatuagem.
+                1) Cadastrar para agendar uma tatuagem.
                 2) Conhecer nossos serviços.
                 `
             )
