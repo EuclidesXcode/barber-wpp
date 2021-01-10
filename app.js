@@ -69,6 +69,7 @@ client.on('message', async (msg) => {
                 2) Conhecer nossos serviços.
                 `
                 )
+                return;
         }
         if(stepper === 1) {
             client.sendMessage(
