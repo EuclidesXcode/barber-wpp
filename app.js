@@ -41,6 +41,9 @@ client.on('message', async (msg) => {
                 from,
                 `Ola! Bem vindo a Santa Tinta Tatuagens.
 Checamos aqui.. Você ainda não está cadastrado em nosso sistema.
+Precisamos que se cadastre em nosso sistema por motivo de segurança,
+so iremos pedir seu nome e data de nascimento para confirmarmos sua idade.
+
 Escolha uma das opções abaixo para continuar:
 1) Cadastrar para agendar uma tatuagem.
 2) Conhecer nossos serviços.
@@ -55,7 +58,6 @@ Escolha uma das opções abaixo para continuar:
                 `Legal, para prosseguir-mos com o cadastro nos informe seu nome completo.`
             )
             await onMessage.updateStepper(msg);
-            console.log("todas: ", name, cpf, age)
             return;
         }
         if(stepper == 0 && message == 2) {
@@ -81,44 +83,23 @@ Escolha uma das opções abaixo para continuar:
             name = message
             client.sendMessage(
                 from,
-                `${msgName[0]}, agora por favor nos informe seu cpf, somente números.`
-            )
+                `${msgName[0]}, Para finalizar precisamos de sua data de nascimento ex: 20-12-1990.`
+                )
             await onMessage.updateStepper(msg, name);
-            console.log("todas: ", name, cpf, age)
             return;
         }
         if(stepper == 2) {
-            cpf = message
-            client.sendMessage(
-                from,
-                `Perfeito! Para finalizar precisamos de sua data de nascimento ex: 20-12-1990`
-            )
-            await onMessage.updateStepper(msg, cpf);
-            console.log("todas: ", name, cpf, age)
-            return;
-        }
-        if(stepper == 3) {
             age = message
+            await onMessage.updateStepper(msg, age);
             client.sendMessage(
                 from, 
                 `Seu cadastro foi concluido com sucesso!
-                Para continuar escolha uma das opções abaixo:
-1) Continuar agendamento.
-2) Conhecer nossos serviços.
-3) Área de atendimento.
+                Agora podemos continuar lhe atendendo e agendar sua tatuagem!
+                
+                Para prosseguir responda *Voltar ao menu*
                 `
             )
-            await onMessage.updateStepper(msg, age);
             console.log("todas: ", name, cpf, age)
-            return;
-        }
-        if(stepper == 4 && message == 1) {
-            client.sendMessage(
-                from,
-                `Para finalizar o agendamento, nos envie uma imagem da tatuagem que deseja.
-Assim enviaremos um design dela remodelada para ser algo único no mesmo linhamento e ideia.
-E entraremos em contato para combinarmos o dia e falarmos sobre preços`
-            );
             return;
         }
         return;
