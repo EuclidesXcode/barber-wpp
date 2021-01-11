@@ -105,6 +105,7 @@ Escolha uma das opções abaixo para continuar:
                 Para continuar escolha uma das opções abaixo:
 1) Continuar agendamento.
 2) Conhecer nossos serviços.
+3) Área de atendimento.
                 `
             )
             await onMessage.updateStepper(msg, age);
@@ -120,6 +121,24 @@ E entraremos em contato para combinarmos o dia e falarmos sobre preços`
             );
             return;
         }
-        console.log("todas: ", name, cpf, age)
+        return;
+    } 
+    if(existsClient.data) {
+        const clientSelected = existsClient.data;
+        if(clientSelected.stepper == 0 && message!= 1 && message != 2 && message != 3 && message != 4 && message != 5 && message != 6 )
+        client.onMessage(
+            from,
+            `Olá ${clientSelected.name}, Santa Tinta agradeçe o contato, com oque podemos ajudar?
+            Escolha uma das opções abaixo.
+            1) Vizualizar tutagens agendadas.
+            2) Cancelar tatuagens agendadas.
+            3) Alterar tatuagem agendada.
+            4) Agendar uma tatuagem.
+            4) Alterar dados de cadastro.
+            5) Falar com algum atendente.
+            6) Finalizar atendimento.
+            `
+        );
+        return;
     }
  })
