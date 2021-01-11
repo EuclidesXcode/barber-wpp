@@ -17,13 +17,13 @@ const onMessage = {
         console.log("stepper: ", stepper.data)
         return stepper;
     },
-    updateStepper: async (msg, client) => {
+    updateStepper: async (msg, payload) => {
         console.log("entrou no update")
-        const from = msg.from
+        const from = msg.from;
         const number = from.split('@');
         const response = await api.put(`/clients/stepper`, {
             from: number[0],
-            client: client
+            client: payload
         });
         return response;
     },

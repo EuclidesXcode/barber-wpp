@@ -125,20 +125,148 @@ E entraremos em contato para combinarmos o dia e falarmos sobre preços`
     } 
     if(existsClient.data) {
         const clientSelected = existsClient.data;
-        if(clientSelected.stepper == 0 && message!= 1 && message != 2 && message != 3 && message != 4 && message != 5 && message != 6 )
-        client.onMessage(
-            from,
-            `Olá ${clientSelected.name}, Santa Tinta agradeçe o contato, com oque podemos ajudar?
-            Escolha uma das opções abaixo.
-            1) Vizualizar tutagens agendadas.
-            2) Cancelar tatuagens agendadas.
-            3) Alterar tatuagem agendada.
-            4) Agendar uma tatuagem.
-            5) Alterar dados de cadastro.
-            6) Falar com algum atendente.
-            7) Finalizar atendimento.
-            `
-        );
+        if(message!= 1 && message != 2 && message != 3 && message != 4 && message != 5 && message != 6 && message.toLocaleLowerCase() == 'voltar ao menu' ) {
+
+            client.onMessage(
+                from,
+                `Olá ${clientSelected.name}, Santa Tinta agradeçe o contato, com oque podemos ajudar?
+                Escolha uma das opções abaixo.
+                1) Vizualizar tatuagem agendada.
+                2) Cancelar tatuagens agendadas.
+                3) Alterar tatuagem agendada.
+                4) Agendar uma tatuagem.
+                5) Falar com algum atendente.
+                6) Finalizar atendimento.
+                `
+            );
+            return;
+        }
+        if(message == 1) {
+            client.onMessage(
+                from,
+                `${tatto,length > 0 ?tatto.map(el=>{
+                    el.day + '-' + el.date +'-'+ el.hour
+                }): 'Não há nenhuma tatuagem agendada.'}
+                
+                Para voltar ao inicio, Responda *Voltar ao menu*
+                
+                `
+
+            );
+            return;
+        }
+        if(message == 2) {
+            client.onMessage(
+                from,
+                `
+                Que pena que deseja cancelar o serviço :C, para confirmar o cancelamento responda *Cancelar*.
+                
+                Caso não queira realmente cancelar, responda *manter agendamento*
+
+                Para voltar ao inicio, Responda *Voltar ao menu*
+                
+                `
+            );
+            return;
+        }
+        if(message.toLowerCase() == 'cancelar') {
+            client.onMessage(
+                from,
+                `
+                Seu pedido de cancelamento foi enviado com sucesso, em breve entramos em contato.
+
+                Para voltar ao inicio, Responda *Voltar ao menu*
+                
+                `
+            );
+            return;
+        }
+        if(message == '3') {
+            client.onMessage(
+                from,
+                `
+                Deseja alterar o modelo que nos enviou ? responda *alterar modelo enviado*.
+                Deseja alterar o modelo modificado que enviamos ? responda *alterar modelo recebido*.
+
+                Para voltar ao inicio, Responda *Voltar ao menu*
+                
+                `
+            );
+            return;
+        }
+        if(message.toLowerCase() == 'alterar modelo enviado') {
+            client.onMessage(
+                from,
+                `
+               Tudo bem ! Então nos envie um novo modelo novo agora beleza?.
+
+               Para voltar ao inicio, Responda *Voltar ao menu*
+
+                
+                `
+            );
+            return;
+        }
+        if(message == '4') {
+            client.onMessage(
+                from,
+                `
+               Opa, para agendar sua nova tatuagem, primeiro precisamos que nos envie um modelo, por aqui mesmo nos envie uma imagem doque deseja.
+
+               Para voltar ao inicio, Responda *Voltar ao menu*
+
+                
+                `
+            );
+            return;
+        }
+        if(message == 'imagem') {
+            client.onMessage(
+                from,
+                `
+               Deseja fazer exatamente igual a imagem enviada ou quer que modificamos algo ?
+               
+               Se quiser deixar por nossa conta a modificação responda *modifiquem*
+
+               Caso queira dar alguma ideia responda *CONCLUIR*, volte ao menu inicial e solicite uma conversa com um atendente.
+
+               Para cancelar e voltar ao inicio, Responda *Voltar ao menu*
+
+                
+                `
+            );
+            return;
+        }
+        if(message == 'modifiquem') {
+            client.onMessage(
+                from,
+                `
+               Perfeito! Seu modelo esta sendo analisado.
+               Iremos modificar e enviar um novo modelo em breve,
+               e assim enviaremos os dias disponiveis em nossa agenda caso goste do novo modelo para concluirmos o serviço.
+
+               Fique atento que talvez um de nossos atendentes entrem em contato!
+
+               Para voltar ao inicio, Responda *Voltar ao menu*
+
+                
+                `
+            );
+            return;
+        }
+        if(message == 5) {
+            client.onMessage(
+                from,
+                `
+               Tudo bem! Aguarde um momento que em breve um de nossos atendentes entrara em contato.
+
+               Para voltar ao inicio, Responda *Voltar ao menu*
+
+                
+                `
+            );
+            return;
+        }
         return;
     }
  })
