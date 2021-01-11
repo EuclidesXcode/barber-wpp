@@ -134,9 +134,9 @@ E entraremos em contato para combinarmos o dia e falarmos sobre preços`
             2) Cancelar tatuagens agendadas.
             3) Alterar tatuagem agendada.
             4) Agendar uma tatuagem.
-            4) Alterar dados de cadastro.
-            5) Falar com algum atendente.
-            6) Finalizar atendimento.
+            5) Alterar dados de cadastro.
+            6) Falar com algum atendente.
+            7) Finalizar atendimento.
             `
         );
         return;
